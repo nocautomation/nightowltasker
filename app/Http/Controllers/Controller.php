@@ -1285,7 +1285,7 @@ class Controller extends BaseController
 
     public function test(Request $data){
         
-        dd("hello");
+        dd("hi");
         
     }
 
