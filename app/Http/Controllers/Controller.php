@@ -1296,7 +1296,7 @@ class Controller extends BaseController
                     ->join('loans', 'orderouts.loan', '=', 'loans.id')
                     ->join('branch', 'loans.branch', '=', 'branch.id')
                     ->select('orderouts.*', 'branch.branch_name','branch.overdue_interval', 'loans.loan_number','loans.borrower','loans.requestor','loans.loan_coordinator')
-                    ->where('orderouts.status', '=', $data['status'])
+                    ->where('orderouts.status', 'LIKE', '%'.$data['status'].'%')
                     ->get();
         }
         else{
@@ -1305,7 +1305,7 @@ class Controller extends BaseController
                     ->join('branch', 'loans.branch', '=', 'branch.id')
                     ->select('orderouts.*', 'branch.branch_name','branch.overdue_interval', 'loans.loan_number','loans.borrower','loans.requestor','loans.loan_coordinator')
                     ->where('loans.branch',session('branch'))
-                    ->where('orderouts.status', '=', $data['status'])
+                    ->where('orderouts.status', 'LIKE', '%'.$data['status'].'%')
                     ->get();
         }
 
@@ -1373,6 +1373,5 @@ class Controller extends BaseController
         dd($data);
     }
 
-   
     
 }

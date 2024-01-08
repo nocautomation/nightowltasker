@@ -85,17 +85,39 @@
                                                             
                                                         </td>
                                                         <td>
-                                                            <select name="select" class="form-control form-control-inverse orderoutstatus" style="width: 150px; height: 20px;" id={{$orderout->id}}>
-                                                                <option value="" disabled selected>Please select status here</option>
-                                                                <option value="Completed" @if($orderout->status == 'Completed') selected @endif>Completed - {{date('F j, Y');}}</option>
-                                                                <option value="Ordered" @if($orderout->status == 'Ordered') selected @endif>Ordered</option>
-                                                                <option value="Pending" @if($orderout->status == 'Pending') selected @endif>Pending</option>
-                                                                <option value="Waiting on Processor" @if($orderout->status == 'Waiting on Processor') selected @endif>Waiting on Processor</option>
-                                                                <option value="Waiting on Borrower" @if($orderout->status == 'Waiting on Borrower') selected @endif>Waiting on Borrower</option>
-                                                                <option value="Cancelled" @if($orderout->status == 'Cancelled') selected @endif>Cancelled</option>
-                                                                <option value="Withdrawn" @if($orderout->status == 'Withdrawn') selected @endif> Withdrawn</option>
-                                                                <option value="Closing Stage" @if($orderout->status == 'Closing Stage') selected @endif>Closing Stage</option>
+                                                            @if(session('user_type') == 0)
+                                                                <select name="select" class="form-control form-control-inverse orderoutstatus" style="width: 150px; height: 20px;" id={{$orderout->id}}>
+                                                                    <option value="" disabled selected>Please select status here</option>
+                                                                    <option value="Completed - {{date('F j, Y h:iA');}}" @if(str_contains($orderout->status, 'Completed')) selected @endif>@if(str_contains($orderout->status, 'Completed')) {{$orderout->status}} @else Complete @endif</option>
+                                                                    <option value="Ordered" @if($orderout->status == 'Ordered') selected @endif>Ordered</option>
+                                                                    <option value="Pending" @if($orderout->status == 'Pending') selected @endif>Pending</option>
+                                                                    <option value="Waiting on Processor" @if($orderout->status == 'Waiting on Processor') selected @endif>Waiting on Processor</option>
+                                                                    <option value="Waiting on Borrower" @if($orderout->status == 'Waiting on Borrower') selected @endif>Waiting on Borrower</option>
+                                                                    <option value="Cancelled" @if($orderout->status == 'Cancelled') selected @endif>Cancelled</option>
+                                                                    <option value="Withdrawn" @if($orderout->status == 'Withdrawn') selected @endif> Withdrawn</option>
+                                                                    <option value="Closing Stage" @if($orderout->status == 'Closing Stage') selected @endif>Closing Stage</option>
                                                             </select>
+
+                                                            @else
+
+                                                                @if(str_contains($orderout->status, 'Completed'))
+                                                                    {{$orderout->status}}
+                                                                @else
+                                                                <select name="select" class="form-control form-control-inverse orderoutstatus" style="width: 150px; height: 20px;" id={{$orderout->id}}>
+                                                                    <option value="" disabled selected>Please select status here</option>
+                                                                    <option value="Completed - {{date('F j, Y h:iA');}}" @if($orderout->status == 'Completed') selected @endif>Complete</option>
+                                                                    <option value="Ordered" @if($orderout->status == 'Ordered') selected @endif>Ordered</option>
+                                                                    <option value="Pending" @if($orderout->status == 'Pending') selected @endif>Pending</option>
+                                                                    <option value="Waiting on Processor" @if($orderout->status == 'Waiting on Processor') selected @endif>Waiting on Processor</option>
+                                                                    <option value="Waiting on Borrower" @if($orderout->status == 'Waiting on Borrower') selected @endif>Waiting on Borrower</option>
+                                                                    <option value="Cancelled" @if($orderout->status == 'Cancelled') selected @endif>Cancelled</option>
+                                                                    <option value="Withdrawn" @if($orderout->status == 'Withdrawn') selected @endif> Withdrawn</option>
+                                                                    <option value="Closing Stage" @if($orderout->status == 'Closing Stage') selected @endif>Closing Stage</option>
+                                                                </select>
+                                                                @endif
+                                                                
+                                                            @endif
+                                                        </td>
                                                         </td>
                                                     </tr>
                                                     @php($x++)
